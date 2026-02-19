@@ -1,0 +1,52 @@
+{
+  description = "Development environment for tendhost project";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    rust-overlay.url = "github:oxalica/rust-overlay";
+  };
+
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+    rust-overlay,
+  }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [rust-overlay.overlays.default];
+      };
+      rust = pkgs.rust-bin.stable."1.92.0".default;
+    in {
+      # to use other shells, run:
+      # nix develop . --command fish
+      devShells.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          rust
+          lazydocker
+          bacon
+          cargo-deny
+          lefthook
+          cocogitto
+          just
+          cargo-workspaces
+          opentofu
+          dbeaver-bin
+          postgresql_16
+          tailwindcss_4
+          docker
+          docker-buildx
+          docker-compose
+          sqlx-cli
+          opencode
+        ];
+        shellHook = ''
+          lefthook install
+          export COMPOSE_BAKE=true
+        '';
+      };
+    });
+}
