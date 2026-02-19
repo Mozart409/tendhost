@@ -1,8 +1,23 @@
 [package]
 name = "tendhost-cli"
-edition = "2024"
 version.workspace = true
+edition.workspace = true
 license.workspace = true
 repository.workspace = true
 
+[[bin]]
+name = "tendhost-cli"
+path = "src/main.rs"
+
 [dependencies]
+clap = { workspace = true }
+reqwest = { workspace = true }
+tokio = { workspace = true }
+tokio-tungstenite = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+color-eyre = { workspace = true }
+
+tendhost-api = { workspace = true }
+tendhost-client = { workspace = true }
