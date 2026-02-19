@@ -13,6 +13,9 @@ pre-commit:
       glob: "*.rs"
       run: cargo check --all-targets
 
+    - name: scc
+      run: scc . --output scc.txt && git add scc.txt
+
 pre-push:
   jobs:
     - name: tests

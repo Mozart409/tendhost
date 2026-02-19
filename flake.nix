@@ -43,6 +43,7 @@
           sqlx-cli
           opencode
           websocat
+          scc
         ];
         shellHook = ''
           lefthook install

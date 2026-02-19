@@ -216,6 +216,13 @@ Before committing code:
 - ❌ Public fields without doc comments
 - ❌ Overly generic type parameters that obscure intent
 
+## MCP Tools
+
+When available, use MCP tools for enhanced capabilities:
+- `context7`: For fetching up-to-date library documentation
+- `grepmcp`: For searching code patterns across GitHub repositories
+- `playwright`: For browser automation and testing web interfaces
+
 ## Project Philosophy
 
 - **Actor-based**: Use kameo for isolated concurrent components
