@@ -1,14 +1,7 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+//! tendhost-exec: Remote execution abstraction
+//!
+//! Provides traits and implementations for executing commands locally and remotely via SSH
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+pub mod traits;
+pub mod ssh;
+pub mod local;
