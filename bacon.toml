@@ -39,13 +39,19 @@ need_stdout = false
 command = ["cargo", "clippy", "--all-targets"]
 need_stdout = false
 
-# Run clippy in pedantic mode
+# Run clippy in pedantic mode with all targets
 # The 'dismiss' feature may come handy
 [jobs.pedantic]
 command = [
 	"cargo", "clippy",
+	"--all-targets",
 	"--",
 	"-W", "clippy::pedantic",
+	"-W", "clippy::correctness",
+	"-W", "clippy::suspicious",
+	"-W", "clippy::complexity",
+	"-W", "clippy::perf",
+	"-D", "warnings",
 ]
 need_stdout = false
 
