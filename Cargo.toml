@@ -1,0 +1,29 @@
+[workspace]
+members = [
+    "crates/*"
+]
+resolver = "3"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/mozart409/tendhost"
+
+[workspace.dependencies]
+# shared deps with single version source
+kameo = "0.13"
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tracing = "0.1"
+chrono = { version = "0.4", features = ["serde"] }
+async-trait = "0.1"
+
+# internal crates
+tendhost-core = { path = "crates/tendhost-core" }
+tendhost-inventory = { path = "crates/tendhost-inventory" }
+tendhost-pkg = { path = "crates/tendhost-pkg" }
+tendhost-exec = { path = "crates/tendhost-exec" }
+
