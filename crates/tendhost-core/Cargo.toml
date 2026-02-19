@@ -7,6 +7,8 @@ repository.workspace = true
 
 [dependencies]
 kameo = { workspace = true }
+kameo_actors = { workspace = true }
+kameo_macros = { workspace = true }
 tokio = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
@@ -16,3 +18,5 @@ async-trait = { workspace = true }
 tracing = { workspace = true }
 
 tendhost-api = { workspace = true }
+tendhost-exec = { workspace = true }
+tendhost-pkg = { workspace = true }
