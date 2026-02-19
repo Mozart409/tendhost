@@ -11,17 +11,49 @@ license = "MIT"
 repository = "https://github.com/mozart409/tendhost"
 
 [workspace.dependencies]
-# shared deps with single version source
+# Actor framework
 kameo = "0.13"
+
+# Async runtime
 tokio = { version = "1", features = ["full"] }
+
+# Web server & WebSocket
+axum = "0.7"
+tokio-tungstenite = "0.23"
+reqwest = { version = "0.12", features = ["json", "cookies", "rustls-tls"], default-features = false }
+
+# OpenAPI
+utoipa = { version = "4.2", features = ["chrono"] }
+utoipa-scalar = "0.1"
+
+# Error handling
+thiserror = "1.0"
+color-eyre = "0.6"
+eyre = "0.6"
+
+# Serialization
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-thiserror = "2"
+toml = "0.8"
+
+# SSH & remote execution
+russh = "0.46"
+
+# CLI & TUI
+clap = { version = "4", features = ["derive"] }
+ratatui = "0.28"
+
+# Logging & observability
 tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# Utilities
 chrono = { version = "0.4", features = ["serde"] }
 async-trait = "0.1"
 
 # internal crates
+tendhost-api = { path = "crates/tendhost-api" }
+tendhost-client = { path = "crates/tendhost-client" }
 tendhost-core = { path = "crates/tendhost-core" }
 tendhost-inventory = { path = "crates/tendhost-inventory" }
 tendhost-pkg = { path = "crates/tendhost-pkg" }
