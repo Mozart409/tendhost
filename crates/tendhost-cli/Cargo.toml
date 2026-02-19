@@ -1,0 +1,8 @@
+[package]
+name = "tendhost-cli"
+edition = "2024"
+version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
