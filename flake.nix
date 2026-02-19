@@ -42,6 +42,7 @@
           docker-compose
           sqlx-cli
           opencode
+          websocat
         ];
         shellHook = ''
           lefthook install
