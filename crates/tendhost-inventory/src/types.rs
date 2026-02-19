@@ -1,0 +1,1 @@
+//! Inventory type definitions
