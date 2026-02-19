@@ -1,11 +1,12 @@
 //! HTTP client for tendhost daemon
 
 use reqwest::Client;
-use tendhost_api::{requests::*, responses::*};
 
 /// HTTP client for communicating with tendhost daemon
 pub struct HttpClient {
+    #[allow(dead_code)]
     client: Client,
+    #[allow(dead_code)]
     base_url: String,
 }
 

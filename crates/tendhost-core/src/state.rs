@@ -2,7 +2,7 @@
 
 use chrono::{DateTime, Utc};
 
-/// States for a HostActor state machine
+/// States for a `HostActor` state machine
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum HostState {
     Idle,

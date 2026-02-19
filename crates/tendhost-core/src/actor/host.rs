@@ -1,4 +1,4 @@
-//! HostActor: Per-host orchestration
+//! `HostActor`: Per-host orchestration
 //!
 //! Manages state machine for a single host and handles updates
 

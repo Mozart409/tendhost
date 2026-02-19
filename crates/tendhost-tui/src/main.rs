@@ -9,7 +9,7 @@ async fn main() -> Result<()> {
     // TODO: Initialize ratatui
     // TODO: Connect to WebSocket
     // TODO: Render TUI
-    
+
     println!("tendhost TUI");
     Ok(())
 }

@@ -15,15 +15,20 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
-    // TODO: Implement subcommands for hosts, fleet, etc.
+    /// List all hosts
+    #[command(name = "hosts")]
+    Hosts,
 }
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let _cli = Cli::parse();
-    
-    // TODO: Implement CLI commands
-    println!("tendhost CLI");
-    
+    let cli = Cli::parse();
+
+    match cli.command {
+        Commands::Hosts => {
+            println!("Listing hosts...");
+        }
+    }
+
     Ok(())
 }
