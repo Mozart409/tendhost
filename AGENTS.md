@@ -5,6 +5,18 @@ This file provides guidelines for AI agents and automated tools working in the t
 > **Last Updated**: 2026-02-19T22:29:50+01:00  
 > **Commit**: b4ae6d8fa38cecda9e77c3a8b360458ed28551bd
 
+## Project Context
+
+**IMPORTANT**: Before working on any code, read [GOALS.md](./GOALS.md) to understand:
+- The project's vision and architecture
+- Actor model design (`OrchestratorActor`, `HostActor`)
+- State machine transitions for host lifecycle
+- Workspace structure and crate responsibilities
+- Core traits (`RemoteExecutor`, `PackageManager`)
+- API design (REST + WebSocket)
+
+GOALS.md defines the **what** and **why** of this project; AGENTS.md defines the **how**.
+
 ## Build, Lint, and Test Commands
 
 ### Quick Checks
