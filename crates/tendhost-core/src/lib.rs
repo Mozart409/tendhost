@@ -1,14 +1,8 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+//! tendhost-core: Actor framework and orchestration logic
+//!
+//! Implements the OrchestratorActor and HostActor using kameo framework.
+//! Contains message types, state machines, and fleet logic.
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+pub mod actor;
+pub mod message;
+pub mod state;
