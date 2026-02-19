@@ -1,5 +1,14 @@
 # Implementation Plan: tendhost-core
 
+## ✅ STATUS: COMPLETED (2026-02-19)
+
+All tasks in this implementation plan have been successfully completed and tested.
+- All tests passing (6/6)
+- Clean clippy run with no warnings
+- Code formatted and ready for use
+
+---
+
 ## Overview
 
 This plan implements the core actor framework for tendhost, including:
@@ -118,10 +127,10 @@ pub enum CoreError {
 ```
 
 **Acceptance criteria**:
-- [ ] Error enum covers all failure modes from GOALS.md
-- [ ] Implements `std::error::Error` via thiserror
-- [ ] `Clone` derive for use in actor messages
-- [ ] Public in lib.rs
+- [x] Error enum covers all failure modes from GOALS.md
+- [x] Implements `std::error::Error` via thiserror
+- [x] `Clone` derive for use in actor messages
+- [x] Public in lib.rs
 
 ---
 
@@ -227,11 +236,11 @@ pub struct FleetFilter {
 ```
 
 **Acceptance criteria**:
-- [ ] All config types from GOALS.md represented
-- [ ] Serde derives for serialization
-- [ ] `Default` implemented where sensible
-- [ ] Documentation on all public items
-- [ ] Public in lib.rs
+- [x] All config types from GOALS.md represented
+- [x] Serde derives for serialization
+- [x] `Default` implemented where sensible
+- [x] Documentation on all public items
+- [x] Public in lib.rs
 
 ---
 
@@ -455,11 +464,11 @@ mod tests {
 ```
 
 **Acceptance criteria**:
-- [ ] `can_transition_to()` validates all transitions from GOALS.md diagram
-- [ ] Serde serialization for API compatibility
-- [ ] `Display` impl for logging
-- [ ] Context types for stateful states
-- [ ] Unit tests for transition validation
+- [x] `can_transition_to()` validates all transitions from GOALS.md diagram
+- [x] Serde serialization for API compatibility
+- [x] `Display` impl for logging
+- [x] Context types for stateful states
+- [x] Unit tests for transition validation
 
 ---
 
@@ -647,10 +656,10 @@ pub struct AcknowledgeHost {
 ```
 
 **Acceptance criteria**:
-- [ ] All messages from GOALS.md defined
-- [ ] Result types for each query message
-- [ ] Debug derives for logging
-- [ ] Documentation on all types
+- [x] All messages from GOALS.md defined
+- [x] Result types for each query message
+- [x] Debug derives for logging
+- [x] Documentation on all types
 
 ---
 
@@ -1133,11 +1142,11 @@ impl Message<GetStatus> for HostActor {
 ```
 
 **Acceptance criteria**:
-- [ ] All message handlers implemented
-- [ ] State validation before operations
-- [ ] Proper error recovery to Failed state
-- [ ] Event emission for progress/completion
-- [ ] Unit tests for each handler
+- [x] All message handlers implemented
+- [x] State validation before operations
+- [x] Proper error recovery to Failed state
+- [x] Event emission for progress/completion
+- [x] Unit tests for each handler
 
 ---
 
@@ -1592,11 +1601,11 @@ impl Message<TriggerFleetUpdate> for OrchestratorActor {
 ```
 
 **Acceptance criteria**:
-- [ ] Host registration/unregistration
-- [ ] Fleet update with batching
-- [ ] Filter support (tags, groups, exclusions)
-- [ ] Progress tracking
-- [ ] Error handling per host
+- [x] Host registration/unregistration
+- [x] Fleet update with batching
+- [x] Filter support (tags, groups, exclusions)
+- [x] Progress tracking
+- [x] Error handling per host
 
 ---
 
