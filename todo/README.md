@@ -29,8 +29,24 @@ Based on dependency graph:
 
 ## Current Focus
 
-**tendhost-core** - Implementing the actor framework with kameo 0.19:
-- `HostActor`: Per-host state machine
-- `OrchestratorActor`: Fleet coordination
-- Message types and handlers
+**tendhost-pkg** - Package manager abstraction (foundation complete):
+- ✅ Error types (`PackageError`)
+- ✅ Type definitions (`UpgradablePackage`, `UpdateResult`, etc.)
+- ✅ Enhanced `PackageManager` trait with `PackageManagerExt`
+- ⏳ `AptManager`: Debian/Ubuntu implementation pending
+- ⏳ `DnfManager`: CentOS/Fedora implementation pending
+- ⏳ `DockerComposeManager`: Docker Compose implementation pending
+
+## Recently Completed
+
+**tendhost-exec** - Remote execution infrastructure:
+- `ExecError` with retryable detection
+- `CommandResult` with status, stdout, stderr, duration
+- `RemoteExecutor` trait with SSH and local support
+- SSH key management with `KeyManager`
+
+**tendhost-core** - Actor framework:
+- `HostActor` with state machine
+- `OrchestratorActor` for fleet coordination
 - Event broadcasting for WebSocket
+- Integration tests updated for new types

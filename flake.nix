@@ -44,6 +44,10 @@
           opencode
           websocat
           scc
+          cargo-outdated
+          cargo-edit
+          cargo-deny
+          cargo-machete
         ];
         shellHook = ''
           lefthook install

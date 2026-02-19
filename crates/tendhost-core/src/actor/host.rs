@@ -215,8 +215,9 @@ impl Message<QueryInventory> for HostActor {
                 })
             }
             Err(e) => {
-                self.fail_with_error(&e);
-                Err(CoreError::InventoryError(e))
+                let error_msg = e.to_string();
+                self.fail_with_error(&error_msg);
+                Err(CoreError::InventoryError(error_msg))
             }
         }
     }
@@ -280,8 +281,9 @@ impl Message<StartUpdate> for HostActor {
                 })
             }
             Err(e) => {
-                self.fail_with_error(&e);
-                Err(CoreError::PackageError(e))
+                let error_msg = e.to_string();
+                self.fail_with_error(&error_msg);
+                Err(CoreError::PackageError(error_msg))
             }
         }
     }
@@ -322,8 +324,9 @@ impl Message<RebootIfRequired> for HostActor {
                 Ok(true)
             }
             Err(e) => {
-                self.fail_with_error(&e);
-                Err(CoreError::SshError(e))
+                let error_msg = e.to_string();
+                self.fail_with_error(&error_msg);
+                Err(CoreError::SshError(error_msg))
             }
         }
     }
@@ -343,7 +346,7 @@ impl Message<HealthCheck> for HostActor {
         // Simple health check: can we run a command?
         match self.executor.run("echo ok").await {
             Ok(output) => {
-                let healthy = output.trim() == "ok";
+                let healthy = output.stdout.trim() == "ok";
 
                 if is_verifying {
                     if healthy {
@@ -366,9 +369,10 @@ impl Message<HealthCheck> for HostActor {
             }
             Err(e) => {
                 if is_verifying {
-                    self.fail_with_error(&e);
+                    let error_msg = e.to_string();
+                    self.fail_with_error(&error_msg);
                 }
-                Err(CoreError::SshError(e))
+                Err(CoreError::SshError(e.to_string()))
             }
         }
     }

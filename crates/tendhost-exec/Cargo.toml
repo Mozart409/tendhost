@@ -12,3 +12,7 @@ thiserror = { workspace = true }
 async-trait = { workspace = true }
 tokio = { workspace = true }
 tracing = { workspace = true }
+
+# SSH support
+russh = "0.57"
+base64 = "0.22"

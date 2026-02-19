@@ -115,10 +115,10 @@ impl PackageError {
 ```
 
 **Acceptance criteria**:
-- [ ] Error enum covers all package manager failure modes
-- [ ] `is_retryable()` helper for lock conflicts
-- [ ] `needs_sudo()` helper for permission errors
-- [ ] Public in lib.rs
+- [x] Error enum covers all package manager failure modes
+- [x] `is_retryable()` helper for lock conflicts
+- [x] `needs_sudo()` helper for permission errors
+- [x] Public in lib.rs
 
 ---
 
@@ -273,11 +273,11 @@ pub struct DistroInfo {
 ```
 
 **Acceptance criteria**:
-- [ ] Enhanced `UpgradablePackage` with all fields
-- [ ] Enhanced `UpdateResult` with builder methods
-- [ ] `PackageManagerType` enum
-- [ ] `DistroInfo` for auto-detection
-- [ ] Serde derives for serialization
+- [x] Enhanced `UpgradablePackage` with all fields
+- [x] Enhanced `UpdateResult` with builder methods
+- [x] `PackageManagerType` enum
+- [x] `DistroInfo` for auto-detection
+- [x] Serde derives for serialization
 
 ---
 
@@ -369,11 +369,11 @@ impl<T: PackageManager> PackageManagerExt for T {
 ```
 
 **Acceptance criteria**:
-- [ ] Enhanced trait with all methods
-- [ ] `manager_type()` for identification
-- [ ] `is_available()` to check prerequisites
-- [ ] Extension trait with utilities
-- [ ] Comprehensive doc comments
+- [x] Enhanced trait with all methods
+- [x] `manager_type()` for identification
+- [x] `is_available()` to check prerequisites
+- [x] Extension trait with utilities
+- [x] Comprehensive doc comments
 
 ---
 
@@ -675,6 +675,8 @@ curl/stable 7.74.0-1.3+deb11u14 amd64 [upgradable from: 7.74.0-1.3+deb11u7]"#;
 - [ ] Reboot detection via `/var/run/reboot-required`
 - [ ] Unit tests for parsing
 
+**Status**: Implementation pending - foundation complete
+
 ---
 
 ## Phase 4: Dnf Implementation
@@ -927,6 +929,8 @@ curl.x86_64         7.76.1-26.el9_0 baseos"#;
 - [ ] Dry-run via `--assumeno`
 - [ ] Reboot detection via `needs-restarting`
 - [ ] Unit tests for parsing
+
+**Status**: Implementation pending - foundation complete
 
 ---
 
@@ -1212,6 +1216,8 @@ mod tests {
 - [ ] No reboot required for Docker
 - [ ] Unit tests for command building
 
+**Status**: Implementation pending - foundation complete
+
 ---
 
 ## Phase 6: Integration
@@ -1269,6 +1275,20 @@ pub use types::{DistroInfo, PackageManagerType, UpdateResult, UpgradablePackage}
 | `src/dnf.rs` | Modify | DnfManager implementation |
 | `src/docker.rs` | Modify | DockerComposeManager implementation |
 | `src/lib.rs` | Modify | Re-exports |
+
+### Current Status
+
+**Completed (2026-02-20)**:
+- ✅ Phase 1: Foundation (error.rs, types.rs)
+- ✅ Phase 2: Trait Enhancement (traits.rs with PackageManager + PackageManagerExt)
+- ✅ Phase 6: Integration (lib.rs exports)
+- ✅ Fixed tendhost-exec to support proper CommandResult return type
+- ✅ Fixed tendhost-core integration tests
+
+**Pending**:
+- ⏳ Phase 3: AptManager implementation
+- ⏳ Phase 4: DnfManager implementation  
+- ⏳ Phase 5: DockerComposeManager implementation
 
 ### Estimated Total Effort
 

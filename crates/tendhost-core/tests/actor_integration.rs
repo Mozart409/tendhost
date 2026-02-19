@@ -6,20 +6,37 @@ use kameo::actor::Spawn;
 use tokio::sync::broadcast;
 
 use tendhost_core::*;
+use tendhost_exec::error::ExecError;
+use tendhost_exec::result::CommandResult;
 use tendhost_exec::traits::RemoteExecutor;
-use tendhost_pkg::traits::{PackageManager, UpdateResult as PkgUpdateResult, UpgradablePackage};
+use tendhost_pkg::error::PackageError;
+use tendhost_pkg::traits::PackageManager;
+use tendhost_pkg::types::{PackageManagerType, UpdateResult as PkgUpdateResult, UpgradablePackage};
 
 // Mock implementations
 struct MockExecutor;
 
 #[async_trait]
 impl RemoteExecutor for MockExecutor {
-    async fn run(&self, _cmd: &str) -> Result<String, String> {
-        Ok("ok".to_string())
+    async fn run(&self, _cmd: &str) -> Result<CommandResult, ExecError> {
+        Ok(CommandResult {
+            status: 0,
+            stdout: "ok".to_string(),
+            stderr: String::new(),
+            duration: Duration::from_millis(1),
+        })
     }
 
-    async fn run_with_timeout(&self, cmd: &str, _timeout: Duration) -> Result<String, String> {
+    async fn run_with_timeout(
+        &self,
+        cmd: &str,
+        _timeout: Duration,
+    ) -> Result<CommandResult, ExecError> {
         self.run(cmd).await
+    }
+
+    fn executor_type(&self) -> &'static str {
+        "mock"
     }
 }
 
@@ -30,32 +47,36 @@ struct MockPackageManager {
 
 #[async_trait]
 impl PackageManager for MockPackageManager {
-    async fn list_upgradable(&self) -> Result<Vec<UpgradablePackage>, String> {
+    async fn list_upgradable(&self) -> Result<Vec<UpgradablePackage>, PackageError> {
         Ok(self
             .packages
             .iter()
-            .map(|name| UpgradablePackage {
-                name: name.clone(),
-                version: "1.0.0".to_string(),
+            .map(|name| {
+                UpgradablePackage::new(name.clone(), "0.9.0".to_string(), "1.0.0".to_string())
             })
             .collect())
     }
 
-    async fn upgrade_all(&self) -> Result<PkgUpdateResult, String> {
+    async fn upgrade_all(&self) -> Result<PkgUpdateResult, PackageError> {
         #[allow(clippy::cast_possible_truncation)]
         let count = self.packages.len() as u32;
-        Ok(PkgUpdateResult {
-            success: true,
-            upgraded_count: count,
-        })
+        Ok(PkgUpdateResult::success(count))
     }
 
-    async fn upgrade_dry_run(&self) -> Result<PkgUpdateResult, String> {
+    async fn upgrade_dry_run(&self) -> Result<PkgUpdateResult, PackageError> {
         self.upgrade_all().await
     }
 
-    async fn reboot_required(&self) -> Result<bool, String> {
+    async fn reboot_required(&self) -> Result<bool, PackageError> {
         Ok(self.reboot_required)
+    }
+
+    fn manager_type(&self) -> PackageManagerType {
+        PackageManagerType::Apt
+    }
+
+    async fn is_available(&self) -> bool {
+        true
     }
 }
 
