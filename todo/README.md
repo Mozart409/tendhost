@@ -7,6 +7,9 @@ This folder contains implementation plans and reasoning documents organized by c
 ```
 todo/
 ├── README.md                        # This file (status overview)
+├── tendhost/                        # ⏳ PLANNED (daemon binary)
+│   ├── 00-reasoning.md
+│   └── 01-implementation-plan.md
 ├── tendhost-core/                   # ✅ COMPLETE
 │   ├── 00-reasoning.md
 │   ├── 01-implementation-plan.md
@@ -23,7 +26,7 @@ todo/
     └── 02-completion-summary.md
 ```
 
-## Implementation Status (Updated: 2026-02-20 18:30)
+## Implementation Status (Updated: 2026-02-20 21:00)
 
 ### ✅ Completed Crates
 
@@ -102,14 +105,22 @@ todo/
 **Estimated effort**: ~4 hours
 
 #### 7. **tendhost** - Daemon binary
-**Status**: ⏳ **PARTIAL** (skeleton exists)
-- ⏳ Axum HTTP server
-- ⏳ WebSocket handlers
-- ⏳ Actor initialization
-- ⏳ Configuration loading
-- 📋 No plan yet
+**Status**: ⏳ **SKELETON** (2026-02-20)
+- ✅ Configuration loading from TOML
+- ✅ Actor system initialization (OrchestratorActor)
+- ✅ Axum HTTP server with graceful shutdown
+- ✅ Health endpoint (`/health`)
+- ✅ Tracing and error handling
+- ⏳ Host API endpoints (pending)
+- ⏳ Fleet API endpoints (pending)
+- ⏳ WebSocket event streaming (pending)
+- ⏳ OpenAPI documentation (pending)
+- ⏳ Host actor factory (pending)
+- 📋 Plan: `todo/tendhost/01-implementation-plan.md`
+- 📋 Skeleton status: `todo/tendhost/02-skeleton-status.md`
 
-**Estimated effort**: ~8 hours
+**Current files**: Runnable skeleton (main.rs, config.rs, state.rs, router.rs, api/system.rs)
+**Remaining effort**: ~9.5 hours for full API
 
 #### 8. **tendhost-cli** - CLI tool
 **Status**: ⏳ **SKELETON ONLY**
@@ -139,7 +150,7 @@ Based on dependencies and current progress:
 2. ✅ **tendhost-exec** (DONE)
 3. ✅ **tendhost-pkg** (DONE)
 4. ✅ **tendhost-inventory** (DONE)
-5. ⏳ **tendhost** (NEXT - daemon - wires everything together)
+5. ⏳ **tendhost** (SKELETON - needs full API implementation)
 6. ⏳ **tendhost-client** (needed for CLI/TUI)
 7. ⏳ **tendhost-cli** (basic commands)
 8. ⏳ **tendhost-tui** (advanced UI)
@@ -149,7 +160,7 @@ Based on dependencies and current progress:
 ## Summary
 
 - **Completed**: 4 core library crates (core, exec, pkg, inventory)
-- **In Progress**: 0
-- **Pending**: 4 crates (client, daemon, cli, tui)
-- **Total Progress**: ~50% of core functionality complete
-- **Next Focus**: `tendhost` daemon to wire everything together
+- **Skeleton**: 1 binary crate (tendhost daemon - MVP runnable)
+- **Pending**: 3 crates (client, cli, tui)
+- **Total Progress**: ~55% of core functionality complete
+- **Next Focus**: Complete `tendhost` daemon API implementation or start client/CLI crates
