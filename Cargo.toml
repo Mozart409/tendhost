@@ -44,6 +44,7 @@ russh = "0.57"
 # CLI & TUI
 clap = { version = "4", features = ["derive"] }
 ratatui = "0.28"
+crossterm = "0.28"
 
 # Logging & observability
 tracing = "0.1"
