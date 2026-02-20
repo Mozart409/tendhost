@@ -1,18 +1,18 @@
 ───────────────────────────────────────────────────────────────────────────────
 Language            Files       Lines    Blanks  Comments       Code Complexity
 ───────────────────────────────────────────────────────────────────────────────
-Rust                   41       4,010       594       613      2,803        204
-Markdown               12       7,382     1,282         0      6,100          0
-TOML                   11         369        46        64        259          0
+Rust                   44       5,435       772       884      3,779        240
+Markdown               13       7,713     1,363         0      6,350          0
+TOML                   11         371        46        64        261          0
 Nix                     1          59         2         2         55          0
 Plain Text              1          18         0         0         18          0
 YAML                    1          25         5         0         20          0
 ───────────────────────────────────────────────────────────────────────────────
-Total                  67      11,863     1,929       679      9,255        204
+Total                  71      13,621     2,188       950     10,483        240
 ───────────────────────────────────────────────────────────────────────────────
-Estimated Cost to Develop (organic) $279,441
-Estimated Schedule Effort (organic) 8.47 months
-Estimated People Required (organic) 2.93
+Estimated Cost to Develop (organic) $318,496
+Estimated Schedule Effort (organic) 8.90 months
+Estimated People Required (organic) 3.18
 ───────────────────────────────────────────────────────────────────────────────
-Processed 351774 bytes, 0.352 megabytes (SI)
+Processed 403522 bytes, 0.404 megabytes (SI)
 ───────────────────────────────────────────────────────────────────────────────

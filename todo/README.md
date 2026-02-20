@@ -17,12 +17,13 @@ todo/
 ├── tendhost-pkg/                    # ✅ COMPLETE
 │   ├── 00-reasoning.md
 │   └── 01-implementation-plan.md
-└── tendhost-inventory/              # ⏳ PENDING
+└── tendhost-inventory/              # ✅ COMPLETE
     ├── 00-reasoning.md
-    └── 01-implementation-plan.md
+    ├── 01-implementation-plan.md
+    └── 02-completion-summary.md
 ```
 
-## Implementation Status (Updated: 2026-02-20)
+## Implementation Status (Updated: 2026-02-20 18:30)
 
 ### ✅ Completed Crates
 
@@ -65,7 +66,20 @@ todo/
 
 **Files**: `error.rs`, `types.rs`, `traits.rs`, `apt.rs`, `dnf.rs`, `docker.rs`
 
-#### 4. **tendhost-api** - Shared API types
+#### 4. **tendhost-inventory** - osquery integration
+**Status**: ✅ **COMPLETE** (2026-02-20)
+- ✅ `OsqueryClient` - SQL query execution via osqueryi
+- ✅ `InventoryCollector` - High-level inventory API
+- ✅ Query builder - Type-safe SQL construction with injection prevention
+- ✅ Type definitions (`SystemInfo`, `HardwareInfo`, `Package`, `Container`, etc.)
+- ✅ Error handling (`InventoryError`)
+- ✅ Query caching with TTL support
+- ✅ All tests passing (7/7, 1 ignored)
+- ✅ Clean clippy pedantic run
+
+**Files**: `error.rs`, `types.rs`, `query.rs`, `osquery.rs`, `collector.rs`
+
+#### 5. **tendhost-api** - Shared API types
 **Status**: ✅ **MOSTLY COMPLETE**
 - ✅ Request/response types
 - ✅ WebSocket event types
@@ -77,18 +91,6 @@ todo/
 ---
 
 ### ⏳ Pending Crates
-
-#### 5. **tendhost-inventory** - osquery integration
-**Status**: ⏳ **SKELETON ONLY**
-- ⏳ `OsqueryClient` implementation pending
-- ⏳ `InventoryCollector` high-level API pending
-- ⏳ Query builder pending
-- ⏳ Type definitions pending (SystemInfo, etc.)
-- ⏳ Error handling pending
-- 📋 Plan exists: `todo/tendhost-inventory/01-implementation-plan.md`
-
-**Current files**: Skeleton only (`lib.rs`, `osquery.rs`, `types.rs`)
-**Estimated effort**: ~6.5 hours
 
 #### 6. **tendhost-client** - HTTP + WebSocket client
 **Status**: ⏳ **NOT STARTED**
@@ -136,8 +138,8 @@ Based on dependencies and current progress:
 1. ✅ **tendhost-core** (DONE)
 2. ✅ **tendhost-exec** (DONE)
 3. ✅ **tendhost-pkg** (DONE)
-4. ⏳ **tendhost-inventory** (NEXT - blocks core functionality)
-5. ⏳ **tendhost** (daemon - wires everything together)
+4. ✅ **tendhost-inventory** (DONE)
+5. ⏳ **tendhost** (NEXT - daemon - wires everything together)
 6. ⏳ **tendhost-client** (needed for CLI/TUI)
 7. ⏳ **tendhost-cli** (basic commands)
 8. ⏳ **tendhost-tui** (advanced UI)
@@ -146,8 +148,8 @@ Based on dependencies and current progress:
 
 ## Summary
 
-- **Completed**: 3 core library crates (core, exec, pkg)
+- **Completed**: 4 core library crates (core, exec, pkg, inventory)
 - **In Progress**: 0
-- **Pending**: 5 crates (inventory, client, daemon, cli, tui)
-- **Total Progress**: ~40% of core functionality complete
-- **Next Focus**: `tendhost-inventory` to enable full host data collection
+- **Pending**: 4 crates (client, daemon, cli, tui)
+- **Total Progress**: ~50% of core functionality complete
+- **Next Focus**: `tendhost` daemon to wire everything together
