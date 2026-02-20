@@ -1,6 +1,4 @@
 # https://just.systems
-set dotenv-load
-
 
 clear:
     clear
