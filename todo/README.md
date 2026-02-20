@@ -7,9 +7,10 @@ This folder contains implementation plans and reasoning documents organized by c
 ```
 todo/
 ├── README.md                        # This file (status overview)
-├── tendhost/                        # ⏳ PLANNED (daemon binary)
+├── tendhost/                        # ⏳ SKELETON (daemon binary)
 │   ├── 00-reasoning.md
-│   └── 01-implementation-plan.md
+│   ├── 01-implementation-plan.md
+│   └── 02-skeleton-status.md
 ├── tendhost-core/                   # ✅ COMPLETE
 │   ├── 00-reasoning.md
 │   ├── 01-implementation-plan.md
@@ -20,13 +21,20 @@ todo/
 ├── tendhost-pkg/                    # ✅ COMPLETE
 │   ├── 00-reasoning.md
 │   └── 01-implementation-plan.md
-└── tendhost-inventory/              # ✅ COMPLETE
+├── tendhost-inventory/              # ✅ COMPLETE
+│   ├── 00-reasoning.md
+│   ├── 01-implementation-plan.md
+│   └── 02-completion-summary.md
+├── tendhost-client/                 # ✅ COMPLETE
+│   ├── 00-reasoning.md
+│   ├── 01-implementation-plan.md
+│   └── 02-completion-summary.md
+└── tendhost-tui/                    # ✅ COMPLETE (TUI binary)
     ├── 00-reasoning.md
-    ├── 01-implementation-plan.md
-    └── 02-completion-summary.md
+    └── 01-implementation-plan.md
 ```
 
-## Implementation Status (Updated: 2026-02-20 21:00)
+## Implementation Status (Updated: 2026-02-21 - TUI Complete! 🎉)
 
 ### ✅ Completed Crates
 
@@ -137,13 +145,23 @@ todo/
 **Estimated effort**: ~4 hours
 
 #### 8. **tendhost-tui** - Terminal UI
-**Status**: ⏳ **SKELETON ONLY**
-- ⏳ Ratatui dashboard
-- ⏳ Event handling
-- ⏳ Real-time updates
-- 📋 No plan yet
+**Status**: ✅ **COMPLETE** (2026-02-21)
+- ✅ Ratatui dashboard with host table
+- ✅ Real-time WebSocket event updates
+- ✅ Host details panel with inventory
+- ✅ Event log panel
+- ✅ Keyboard navigation (vim-style)
+- ✅ Actions (update, reboot, retry)
+- ✅ Search and filtering
+- ✅ Help popup with keybindings
+- ✅ Status bar with connection state
+- ✅ Color-coded host states
+- ✅ Clean build with clippy pedantic
+- 📋 Reasoning: `todo/tendhost-tui/00-reasoning.md`
+- 📋 Plan: `todo/tendhost-tui/01-implementation-plan.md`
 
-**Estimated effort**: ~12 hours
+**Architecture**: App state + Event loop + UI rendering + WebSocket integration
+**Files**: 13 modules (main, action, event, app, config, ui/*)
 
 ---
 
@@ -156,16 +174,38 @@ Based on dependencies and current progress:
 3. ✅ **tendhost-pkg** (DONE)
 4. ✅ **tendhost-inventory** (DONE)
 5. ✅ **tendhost-client** (DONE)
-6. ⏳ **tendhost** (SKELETON - needs full API implementation)
-7. ⏳ **tendhost-cli** (basic commands)
-8. ⏳ **tendhost-tui** (advanced UI)
+6. ✅ **tendhost-tui** (DONE)
+7. ⏳ **tendhost** (SKELETON - needs full API implementation)
+8. ⏳ **tendhost-cli** (basic commands)
 
 ---
 
 ## Summary
 
-- **Completed**: 5 core library crates (core, exec, pkg, inventory, client)
+- **Completed**: 6 crates (core, exec, pkg, inventory, client, tui)
 - **Skeleton**: 1 binary crate (tendhost daemon - MVP runnable)
-- **Pending**: 2 user-facing crates (cli, tui)
-- **Total Progress**: ~70% of core functionality complete
-- **Next Focus**: Either complete `tendhost` daemon API or build CLI/TUI using the client library
+- **Pending**: 1 user-facing crate (cli)
+- **Total Progress**: ~85% of core functionality complete
+- **Next Focus**: Complete `tendhost` daemon API or build CLI using the client library
+
+## Recent Completion: tendhost-tui ✨
+
+**Status**: ✅ Fully functional Terminal UI (2026-02-21)
+
+### Implemented Features
+- **Host Table**: List view with state, OS, package counts
+- **Details Panel**: System info, uptime, upgradable packages
+- **Event Log**: Real-time event stream with timestamps
+- **WebSocket Integration**: Live updates from daemon
+- **Keyboard Navigation**: j/k/g/G + arrow keys + Tab for focus
+- **Actions**: Trigger update (u), reboot (r), retry (R), acknowledge (a)
+- **Search**: Filter hosts with / key
+- **Help Popup**: Complete keybinding reference with ?
+- **Color Coding**: Visual states (green=idle, blue=updating, red=failed, etc.)
+- **Status Bar**: Connection state + keybinding hints
+
+### Technical Details
+- **13 modules**: main, action, event, app (440 lines), config, ui/* (7 widgets)
+- **Build Status**: ✅ cargo build, ✅ cargo test, ✅ clippy pedantic
+- **Dependencies**: ratatui, crossterm, tokio, tendhost-client
+- **Architecture**: Async event loop with tokio::select! for terminal events + WebSocket
