@@ -39,7 +39,7 @@ serde_json = "1"
 toml = "0.8"
 
 # SSH & remote execution
-russh = "0.46"
+russh = "0.57"
 
 # CLI & TUI
 clap = { version = "4", features = ["derive"] }
