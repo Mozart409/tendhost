@@ -175,6 +175,36 @@ crate/
 - Test happy path and error cases
 - Mock external dependencies; use fixture functions for setup
 
+## Nix Development Environment
+
+This project uses Nix for reproducible development environments. The `flake.nix` defines all necessary tools.
+
+### Available Tools
+The Nix shell provides:
+- **Rust**: Stable toolchain (1.92.0)
+- **Cargo tools**: `cargo-deny`, `cargo-outdated`, `cargo-edit`, `cargo-machete`, `cargo-workspaces`
+- **Dev tools**: `bacon`, `lefthook`, `cocogitto`, `just`, `scc`
+- **Infrastructure**: `opentofu`, `docker`, `docker-compose`, `lazydocker`
+- **Database**: `postgresql_16`, `sqlx-cli`, `dbeaver-bin`
+- **Frontend**: `tailwindcss_4`
+- **WebSocket**: `websocat`
+- **AI**: `opencode`
+
+### Entering the Environment
+```bash
+# Enter the default shell
+nix develop
+
+# Use a different shell
+nix develop . --command fish
+```
+
+### Updating the Environment
+After modifying `flake.nix`, run:
+```bash
+nix flake update
+```
+
 ## Crate Structure & Dependencies
 
 ### Library Crates (must have `thiserror`)
