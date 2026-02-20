@@ -11,11 +11,15 @@ path = "src/main.rs"
 
 [dependencies]
 ratatui = { workspace = true }
+crossterm = { workspace = true }
 tokio = { workspace = true }
-tokio-tungstenite = { workspace = true }
 serde_json = { workspace = true }
 tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
 color-eyre = { workspace = true }
+clap = { workspace = true }
+chrono = { workspace = true }
+unicode-width = "0.2"
 
 tendhost-api = { workspace = true }
 tendhost-client = { workspace = true }
