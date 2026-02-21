@@ -118,22 +118,28 @@ todo/
 **Files**: `error.rs`, `http.rs`, `ws.rs`, `lib.rs` (830 lines total)
 
 #### 6. **tendhost** - Daemon binary
-**Status**: ⏳ **SKELETON** (2026-02-20)
+**Status**: ⏳ **IN PROGRESS** (40% Complete - 2026-02-21)
 - ✅ Configuration loading from TOML
 - ✅ Actor system initialization (OrchestratorActor)
 - ✅ Axum HTTP server with graceful shutdown
 - ✅ Health endpoint (`/health`)
 - ✅ Tracing and error handling
-- ⏳ Host API endpoints (pending)
-- ⏳ Fleet API endpoints (pending)
+- ✅ **Host actor factory (DefaultHostFactory)** - NEW!
+- ✅ **Host API endpoints (9 endpoints)** - NEW!
+  - GET/POST /hosts - List and register
+  - GET/DELETE /hosts/:hostname - Details and unregister
+  - POST /hosts/:hostname/{update,reboot,retry,acknowledge}
+  - GET /hosts/:hostname/inventory
+- ⏳ Fleet API endpoints (4 endpoints pending)
 - ⏳ WebSocket event streaming (pending)
 - ⏳ OpenAPI documentation (pending)
-- ⏳ Host actor factory (pending)
 - 📋 Plan: `todo/tendhost/01-implementation-plan.md`
-- 📋 Skeleton status: `todo/tendhost/02-skeleton-status.md`
+- 📋 Skeleton: `todo/tendhost/02-skeleton-status.md`
+- 📋 **Progress: `todo/tendhost/03-api-implementation-progress.md`** - NEW!
 
-**Current files**: Runnable skeleton (main.rs, config.rs, state.rs, router.rs, api/system.rs)
-**Remaining effort**: ~9.5 hours for full API
+**Current files**: factory.rs, api/hosts.rs (340 lines), router (10/17 endpoints)
+**Completed**: Phases 1-2 of 6 (4 hours)
+**Remaining effort**: ~5.5 hours for fleet, WebSocket, docs, testing
 
 #### 7. **tendhost-cli** - CLI tool
 **Status**: ⏳ **SKELETON ONLY**
@@ -175,18 +181,18 @@ Based on dependencies and current progress:
 4. ✅ **tendhost-inventory** (DONE)
 5. ✅ **tendhost-client** (DONE)
 6. ✅ **tendhost-tui** (DONE)
-7. ⏳ **tendhost** (SKELETON - needs full API implementation)
-8. ⏳ **tendhost-cli** (basic commands)
+7. ⏳ **tendhost** (40% DONE - host API + factory complete, fleet/WS pending)
+8. ⏳ **tendhost-cli** (not started)
 
 ---
 
 ## Summary
 
 - **Completed**: 6 crates (core, exec, pkg, inventory, client, tui)
-- **Skeleton**: 1 binary crate (tendhost daemon - MVP runnable)
+- **In Progress**: 1 binary crate (tendhost daemon - 40% API complete)
 - **Pending**: 1 user-facing crate (cli)
-- **Total Progress**: ~85% of core functionality complete
-- **Next Focus**: Complete `tendhost` daemon API or build CLI using the client library
+- **Total Progress**: ~87% of core functionality complete
+- **Next Focus**: Complete daemon API (fleet, WebSocket, docs) OR build CLI
 
 ## Recent Completion: tendhost-tui ✨
 
