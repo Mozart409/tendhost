@@ -80,7 +80,7 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
                 .borders(Borders::ALL)
                 .border_style(border_style),
         )
-        .highlight_style(config::selected_style())
+        .row_highlight_style(config::selected_style())
         .highlight_symbol("▸ ");
 
     // Render with state for selection

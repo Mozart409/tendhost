@@ -20,16 +20,16 @@ kameo_macros = "0.19"
 tokio = { version = "1", features = ["full"] }
 
 # Web server & WebSocket
-axum = "0.7"
-tokio-tungstenite = "0.23"
-reqwest = { version = "0.12", features = ["json", "cookies", "rustls-tls"], default-features = false }
+axum = "0.8"
+tokio-tungstenite = "0.28"
+reqwest = { version = "0.13", features = ["json", "cookies", "rustls"], default-features = false }
 
 # OpenAPI
-utoipa = { version = "4.2", features = ["chrono"] }
-utoipa-scalar = "0.1"
+utoipa = { version = "5.4", features = ["chrono"] }
+utoipa-scalar = "0.3"
 
 # Error handling
-thiserror = "1.0"
+thiserror = "2.0"
 color-eyre = "0.6"
 eyre = "0.6"
 
@@ -43,8 +43,8 @@ russh = "0.57"
 
 # CLI & TUI
 clap = { version = "4", features = ["derive"] }
-ratatui = "0.28"
-crossterm = "0.28"
+ratatui = "0.30"
+crossterm = "0.29"
 
 # Logging & observability
 tracing = "0.1"

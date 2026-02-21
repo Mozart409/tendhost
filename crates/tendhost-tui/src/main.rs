@@ -86,7 +86,10 @@ async fn run_app<B: Backend>(
     terminal: &mut Terminal<B>,
     app: &mut App,
     tick_rate: Duration,
-) -> Result<()> {
+) -> Result<()>
+where
+    B::Error: Send + Sync + 'static,
+{
     // Create event handler
     let mut events = EventHandler::new(tick_rate);
     events.start();
