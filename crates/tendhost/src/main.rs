@@ -26,10 +26,12 @@ use tendhost_core::{OrchestratorActor, OrchestratorActorArgs};
 
 mod api;
 mod config;
+mod factory;
 mod router;
 mod state;
 
 use config::Config;
+use factory::DefaultHostFactory;
 use state::AppState;
 
 #[tokio::main]
@@ -49,11 +51,17 @@ async fn main() -> Result<()> {
         .with_target(true)
         .init();
 
-    info!("tendhost daemon starting (skeleton mode)...");
+    info!("tendhost daemon starting...");
     info!(bind = %config.daemon.bind, "configuration loaded");
 
-    // Spawn orchestrator actor (with default/no-op factory for now)
-    let orchestrator_args = OrchestratorActorArgs::default();
+    // Create host factory
+    let host_factory = Arc::new(DefaultHostFactory::new());
+
+    // Spawn orchestrator actor with factory
+    let orchestrator_args = OrchestratorActorArgs {
+        event_channel_capacity: 1024,
+        host_factory,
+    };
     let orchestrator = OrchestratorActor::spawn(orchestrator_args);
 
     info!("orchestrator actor started");
