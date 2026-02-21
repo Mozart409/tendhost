@@ -12,5 +12,7 @@ outdated: clear
 test: clear
     cargo test --workspace
 
+machete: clear
+    cargo machete
 scc: clear
     scc .
