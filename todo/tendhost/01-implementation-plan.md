@@ -3,6 +3,7 @@
 ## Overview
 
 This plan implements the tendhost daemon binary, the central service that:
+
 - Loads configuration from `tendhost.toml`
 - Initializes the actor system (`OrchestratorActor` + `HostActor`s)
 - Serves REST API via axum
@@ -51,6 +52,7 @@ This plan implements the tendhost daemon binary, the central service that:
 ## Current State
 
 The daemon has skeleton files:
+
 - `src/main.rs` - Basic entry point with TODOs
 - `src/config.rs` - Empty configuration module
 - `src/api/mod.rs` - Module structure
@@ -63,6 +65,7 @@ The daemon has skeleton files:
 ## Phase 1: Configuration Loading
 
 ### Task 1.1: Define Daemon Configuration Types (`config.rs`)
+
 **Priority**: High  
 **Estimated effort**: 45 min
 
@@ -200,10 +203,10 @@ impl Config {
     pub fn load(path: &PathBuf) -> eyre::Result<Self> {
         let content = std::fs::read_to_string(path)
             .map_err(|e| eyre::eyre!("failed to read config file: {}", e))?;
-        
+
         let config: Config = toml::from_str(&content)
             .map_err(|e| eyre::eyre!("failed to parse config file: {}", e))?;
-        
+
         Ok(config)
     }
 
@@ -304,6 +307,7 @@ mod tests {
 ```
 
 **Acceptance criteria**:
+
 - [ ] All config types from GOALS.md represented
 - [ ] Default values applied correctly
 - [ ] Multiple config file paths supported
@@ -313,6 +317,7 @@ mod tests {
 ---
 
 ### Task 1.2: Add `dirs` Dependency
+
 **Priority**: High  
 **Estimated effort**: 5 min
 
@@ -328,6 +333,7 @@ dirs = "5"
 ## Phase 2: Application State & Actor Factory
 
 ### Task 2.1: Create Application State (`state.rs`)
+
 **Priority**: High  
 **Estimated effort**: 30 min
 
@@ -365,6 +371,7 @@ impl AppState {
 ---
 
 ### Task 2.2: Implement `HostActorFactory` (`factory.rs`)
+
 **Priority**: High  
 **Estimated effort**: 1 hour
 
@@ -429,7 +436,7 @@ enum PackageManagerType {
 impl HostActorFactory for DefaultHostFactory {
     async fn create_executor(&self, config: &HostConfig) -> Arc<dyn RemoteExecutor> {
         // Check if this is localhost
-        let is_local = config.addr == "localhost" 
+        let is_local = config.addr == "localhost"
             || config.addr == "127.0.0.1"
             || config.addr.starts_with("local:");
 
@@ -490,6 +497,7 @@ impl HostActorFactory for DefaultHostFactory {
 ```
 
 **Acceptance criteria**:
+
 - [ ] Detects localhost vs remote hosts
 - [ ] Creates appropriate executor (Local vs SSH)
 - [ ] Detects package manager from remote system
@@ -501,6 +509,7 @@ impl HostActorFactory for DefaultHostFactory {
 ## Phase 3: HTTP Server Setup
 
 ### Task 3.1: Create Router (`router.rs`)
+
 **Priority**: High  
 **Estimated effort**: 45 min
 
@@ -557,7 +566,7 @@ pub fn create_router(state: Arc<AppState>) -> Router {
         title = "tendhost API",
         description = "Actor-based homelab orchestration system",
         version = "0.1.0",
-        license(name = "MIT"),
+        license(name = "AGPL"),
     ),
     paths(
         hosts::list_hosts,
@@ -608,6 +617,7 @@ use crate::api::ApiError;
 ```
 
 **Acceptance criteria**:
+
 - [ ] All routes from GOALS.md implemented
 - [ ] OpenAPI documentation complete
 - [ ] Scalar UI at `/docs`
@@ -616,6 +626,7 @@ use crate::api::ApiError;
 ---
 
 ### Task 3.2: Create API Error Type (`api/error.rs`)
+
 **Priority**: High  
 **Estimated effort**: 30 min
 
@@ -762,6 +773,7 @@ impl From<tendhost_core::CoreError> for AppError {
 ## Phase 4: Host API Handlers
 
 ### Task 4.1: Implement Host Handlers (`api/hosts.rs`)
+
 **Priority**: High  
 **Estimated effort**: 2 hours
 
@@ -1004,7 +1016,7 @@ pub async fn update_host(
     Path(name): Path<String>,
     Json(req): Json<UpdateRequest>,
 ) -> Result<Json<UpdateResponse>, AppError> {
-    let result = state.orchestrator.ask(TriggerHostUpdate { 
+    let result = state.orchestrator.ask(TriggerHostUpdate {
         hostname: name,
         dry_run: req.dry_run,
     }).await
@@ -1120,6 +1132,7 @@ pub async fn get_inventory(
 ```
 
 **Acceptance criteria**:
+
 - [ ] All host endpoints implemented
 - [ ] Proper error handling
 - [ ] Pagination working
@@ -1131,6 +1144,7 @@ pub async fn get_inventory(
 ## Phase 5: Fleet API Handlers
 
 ### Task 5.1: Implement Fleet Handlers (`api/fleet.rs`)
+
 **Priority**: High  
 **Estimated effort**: 1 hour
 
@@ -1306,6 +1320,7 @@ pub async fn list_tags(
 ## Phase 6: WebSocket Handler
 
 ### Task 6.1: Implement WebSocket Handler (`api/ws.rs`)
+
 **Priority**: High  
 **Estimated effort**: 1.5 hours
 
@@ -1404,7 +1419,7 @@ pub struct Subscribe;
 // Implementation in tendhost-core would look like:
 // impl Message<Subscribe> for OrchestratorActor {
 //     type Reply = broadcast::Receiver<WsEvent>;
-//     
+//
 //     async fn handle(&mut self, _msg: Subscribe, _ctx: &mut Context<Self, Self::Reply>) -> Self::Reply {
 //         self.event_tx.subscribe()
 //     }
@@ -1418,6 +1433,7 @@ pub struct Subscribe;
 ## Phase 7: System Endpoints
 
 ### Task 7.1: Implement System Handlers (`api/system.rs`)
+
 **Priority**: Medium  
 **Estimated effort**: 30 min
 
@@ -1457,12 +1473,13 @@ pub async fn openapi_json() -> Json<utoipa::openapi::OpenApi> {
 ## Phase 8: Main Entry Point
 
 ### Task 8.1: Implement Main Function (`main.rs`)
+
 **Priority**: High  
 **Estimated effort**: 1 hour
 
 Rewrite `crates/tendhost/src/main.rs`:
 
-```rust
+````rust
 //! tendhost daemon
 //!
 //! Actor-based homelab orchestration system using axum HTTP server and kameo actors.
@@ -1507,7 +1524,7 @@ async fn main() -> Result<()> {
     // Initialize tracing
     let filter = EnvFilter::try_from_default_env()
         .unwrap_or_else(|_| EnvFilter::new(&config.daemon.log_level));
-    
+
     tracing_subscriber::fmt()
         .with_env_filter(filter)
         .with_target(true)
@@ -1596,13 +1613,14 @@ async fn shutdown_signal() {
 
     info!("shutdown signal received");
 }
-```
+````
 
 ---
 
 ## Phase 9: Module Organization
 
 ### Task 9.1: Update Module Structure
+
 **Priority**: Medium  
 **Estimated effort**: 15 min
 
@@ -1625,6 +1643,7 @@ pub use error::{ApiError, AppError};
 ## Phase 10: Dependencies Update
 
 ### Task 10.1: Update Cargo.toml
+
 **Priority**: High  
 **Estimated effort**: 10 min
 
@@ -1683,6 +1702,7 @@ tendhost-exec = { workspace = true }
 ## Phase 11: Integration Testing
 
 ### Task 11.1: Create Integration Tests
+
 **Priority**: Medium  
 **Estimated effort**: 2 hours
 
@@ -1702,7 +1722,7 @@ async fn test_health_endpoint() {
     // TODO: Set up test server with mock state
     // let app = create_test_app();
     // let server = TestServer::new(app).unwrap();
-    
+
     // let response = server.get("/health").await;
     // assert_eq!(response.status(), StatusCode::OK);
 }
@@ -1729,31 +1749,32 @@ async fn test_get_host_not_found() {
 
 ### File Changes Required
 
-| File | Action | Description |
-|------|--------|-------------|
-| `Cargo.toml` | Modify | Add `dirs`, `futures-util`, axum `ws` feature |
-| `src/main.rs` | Rewrite | Full daemon implementation |
-| `src/config.rs` | Rewrite | Configuration loading |
-| `src/state.rs` | Create | Application state |
-| `src/factory.rs` | Create | `HostActorFactory` implementation |
-| `src/router.rs` | Create | Router and `OpenAPI` setup |
-| `src/api/mod.rs` | Modify | Add error module |
-| `src/api/error.rs` | Create | API error types |
-| `src/api/hosts.rs` | Rewrite | Host handlers |
-| `src/api/fleet.rs` | Rewrite | Fleet handlers |
-| `src/api/ws.rs` | Rewrite | WebSocket handler |
-| `src/api/system.rs` | Create | Health and docs handlers |
-| `tests/api_integration.rs` | Create | Integration tests |
+| File                       | Action  | Description                                   |
+| -------------------------- | ------- | --------------------------------------------- |
+| `Cargo.toml`               | Modify  | Add `dirs`, `futures-util`, axum `ws` feature |
+| `src/main.rs`              | Rewrite | Full daemon implementation                    |
+| `src/config.rs`            | Rewrite | Configuration loading                         |
+| `src/state.rs`             | Create  | Application state                             |
+| `src/factory.rs`           | Create  | `HostActorFactory` implementation             |
+| `src/router.rs`            | Create  | Router and `OpenAPI` setup                    |
+| `src/api/mod.rs`           | Modify  | Add error module                              |
+| `src/api/error.rs`         | Create  | API error types                               |
+| `src/api/hosts.rs`         | Rewrite | Host handlers                                 |
+| `src/api/fleet.rs`         | Rewrite | Fleet handlers                                |
+| `src/api/ws.rs`            | Rewrite | WebSocket handler                             |
+| `src/api/system.rs`        | Create  | Health and docs handlers                      |
+| `tests/api_integration.rs` | Create  | Integration tests                             |
 
 ### Required Changes to tendhost-core
 
 1. **Add `Subscribe` message** to `OrchestratorActor`:
+
 ```rust
 pub struct Subscribe;
 
 impl Message<Subscribe> for OrchestratorActor {
     type Reply = broadcast::Receiver<WsEvent>;
-    
+
     async fn handle(&mut self, _msg: Subscribe, _ctx: &mut Context<Self, Self::Reply>) -> Self::Reply {
         self.event_tx.subscribe()
     }
@@ -1764,20 +1785,20 @@ impl Message<Subscribe> for OrchestratorActor {
 
 ### Estimated Total Effort
 
-| Phase | Effort |
-|-------|--------|
-| Phase 1: Configuration | 50 min |
-| Phase 2: State & Factory | 1.5 hours |
-| Phase 3: Router | 45 min |
-| Phase 4: Host API | 2.5 hours |
-| Phase 5: Fleet API | 1 hour |
-| Phase 6: WebSocket | 1.5 hours |
-| Phase 7: System Endpoints | 30 min |
-| Phase 8: Main Entry | 1 hour |
-| Phase 9: Module Org | 15 min |
-| Phase 10: Dependencies | 10 min |
-| Phase 11: Testing | 2 hours |
-| **Total** | **~12 hours** |
+| Phase                     | Effort        |
+| ------------------------- | ------------- |
+| Phase 1: Configuration    | 50 min        |
+| Phase 2: State & Factory  | 1.5 hours     |
+| Phase 3: Router           | 45 min        |
+| Phase 4: Host API         | 2.5 hours     |
+| Phase 5: Fleet API        | 1 hour        |
+| Phase 6: WebSocket        | 1.5 hours     |
+| Phase 7: System Endpoints | 30 min        |
+| Phase 8: Main Entry       | 1 hour        |
+| Phase 9: Module Org       | 15 min        |
+| Phase 10: Dependencies    | 10 min        |
+| Phase 11: Testing         | 2 hours       |
+| **Total**                 | **~12 hours** |
 
 ### Priority Order
 
@@ -1796,7 +1817,7 @@ impl Message<Subscribe> for OrchestratorActor {
 ### Dependencies
 
 - **Blocks**: `tendhost-cli`, `tendhost-tui` (need running daemon)
-- **Blocked by**: 
+- **Blocked by**:
   - `tendhost-core` (actors, messages) ✅ COMPLETE
   - `tendhost-exec` (SSH execution) ✅ COMPLETE
   - `tendhost-pkg` (package managers) ✅ COMPLETE
