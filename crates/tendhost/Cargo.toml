@@ -24,7 +24,7 @@ tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
 chrono = { workspace = true }
 async-trait = { workspace = true }
-dirs = "5"
+dirs = "6"
 kameo = { workspace = true }
 
 tendhost-api = { workspace = true }
