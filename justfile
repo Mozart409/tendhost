@@ -11,3 +11,6 @@ outdated: clear
 
 test: clear
     cargo test --workspace
+
+scc: clear
+    scc .
