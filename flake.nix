@@ -25,6 +25,7 @@
       # nix develop . --command fish
       devShells.default = pkgs.mkShell {
         buildInputs = with pkgs; [
+          # keep-sorted start
           rust
           lazydocker
           bacon
@@ -34,25 +35,22 @@
           just
           cargo-workspaces
           opentofu
-          dbeaver-bin
-          postgresql_16
+          postgresql_18
           tailwindcss_4
-          docker
-          docker-buildx
-          docker-compose
+          podman
+          podman-compose
           sqlx-cli
-          opencode
           websocat
           scc
           cargo-outdated
           cargo-edit
           cargo-deny
           cargo-machete
+          keep-sorted
+          # keep-sorted end
         ];
         shellHook = ''
           lefthook install
-          cog install-hook
-          export COMPOSE_BAKE=true
         '';
       };
     });
