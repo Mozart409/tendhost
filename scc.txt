@@ -4,9 +4,9 @@ Language            Files       Lines    Blanks  Comments       Code Complexity
 Rust                   61       8,338     1,112     1,540      5,686        534
 Markdown               24      14,338     2,544         0     11,794          0
 TOML                   11         383        47        65        271          0
-YAML                    3          75         7         4         64          0
+YAML                    3          76         7         4         65          0
 License                 1         661       117         0        544          0
-Nix                     1          57         2         4         51          0
+Nix                     1          56         2         4         50          0
 Plain Text              1          19         0         0         19          0
 ───────────────────────────────────────────────────────────────────────────────
 Total                 102      23,871     3,829     1,613     18,429        534
@@ -15,5 +15,5 @@ Estimated Cost to Develop (organic) $575,994
 Estimated Schedule Effort (organic) 11.15 months
 Estimated People Required (organic) 4.59
 ───────────────────────────────────────────────────────────────────────────────
-Processed 723,158 bytes, 0.723 megabytes (SI)
+Processed 723,161 bytes, 0.723 megabytes (SI)
 ───────────────────────────────────────────────────────────────────────────────

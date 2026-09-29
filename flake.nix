@@ -26,27 +26,26 @@
       devShells.default = pkgs.mkShell {
         buildInputs = with pkgs; [
           # keep-sorted start
-          rust
-          lazydocker
           bacon
           cargo-deny
-          lefthook
+          cargo-edit
+          cargo-machete
+          cargo-outdated
+          cargo-workspaces
           cocogitto
           just
-          cargo-workspaces
+          keep-sorted
+          lazydocker
+          lefthook
           opentofu
-          postgresql_18
-          tailwindcss_4
           podman
           podman-compose
-          sqlx-cli
-          websocat
+          postgresql_18
+          rust
           scc
-          cargo-outdated
-          cargo-edit
-          cargo-deny
-          cargo-machete
-          keep-sorted
+          sqlx-cli
+          tailwindcss_4
+          websocat
           # keep-sorted end
         ];
         shellHook = ''
